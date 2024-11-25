@@ -1,8 +1,8 @@
 from paramiko import SSHClient, AutoAddPolicy
 
-# router_ip = "172.30.4.54" #"172.16.1.100"
-# router_username = "luxe"
-# router_password = "vpng@24wts"
+# router_ip = "127.0.0.15"
+# router_username = "kitten"
+# router_password = "secret"
 
 ssh = SSHClient()
 
