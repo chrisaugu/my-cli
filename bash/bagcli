@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# set -e
+export BAGCLI_WORKDIR=$(cd $(dirname $0) && pwd)
+. "$BAGCLI_WORKDIR/common"
+
+cli_help() {
+  cli_name=${0##*/}
+  echo "
+$cli_name
+ZykNet CLI
+Version: $(cat $BAGCLI_WORKDIR/VERSION)
+Usage: $cli_name [command]
+Commands:
+  deploy    Deploy
+  ssl       Generate new SSL Certificate
+  check_ssl Check SSL certificates
+  *         Help
+"
+  exit 1
+}
+
+cli_log "Exporting config ..."
+export $(cat "$BAGCLI_WORKDIR/config" | xargs)
+
+case "$1" in
+  deploy|d)
+    "$BAGCLI_WORKDIR/commands/deploy" "$2" | tee -ia "$BAGCLI_WORKDIR/deploy_${2}.log"
+    ;;
+  ssl|s)
+    "$BAGCLI_WORKDIR/commands/ssl" "$2" | tee -ia "$BAGCLI_WORKDIR/deploy_${2}.log"
+    ;;
+  check_ssl|c)
+    "$BAGCLI_WORKDIR/commands/check_ssl" "$2" | tee -ia "$BAGCLI_WORKDIR/deploy_${2}.log"
+    ;;
+  *)
+    cli_help
+    ;;
+esac
+
+my_func() {
+  command1
+  command2
+}
+
+backup() {
+  tar -czf "$1_backup.tar.gz" "$1"
+}
+
+git_status_log() {
+  git status 
+  git log --online
+}
+
+go_and_list() {
+  cd "$1" && ls -la
+}

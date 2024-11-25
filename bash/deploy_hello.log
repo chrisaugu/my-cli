@@ -1,0 +1,12 @@
+== deploy 2024-10-22T22:37:10Z Deployment BEGIN
+== deploy 2024-10-22T22:37:10Z ENV variables
+BAGCLI_PROJECT_NAME=hello
+BAGCLI_WORKDIR=/home/chrisaugu/projects/personal/bash
+== deploy 2024-10-22T22:37:10Z Executing helm upgrade --install ...
+== deploy 2024-10-22T22:37:10Z Deployment END
+== deploy 2024-10-22T22:38:02Z Deployment BEGIN
+== deploy 2024-10-22T22:38:02Z ENV variables
+BAGCLI_PROJECT_NAME=hello
+BAGCLI_WORKDIR=/home/chrisaugu/projects/personal/bash
+== deploy 2024-10-22T22:38:02Z Executing helm upgrade --install ...
+== deploy 2024-10-22T22:38:02Z Deployment END

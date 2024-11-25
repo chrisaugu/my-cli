@@ -1,0 +1,32 @@
+services:
+  nextjs:
+    container_name: nextjs
+    build:
+      context: ./
+      dockerfile: prod.Dockerfile
+      args:
+        ENV_VARIABLE: ${ENV_VARIABLE}
+        NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+    restart: always
+    ports:
+      - 3031:3031
+    networks:
+      - wms-network
+  
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/ssl:/etc/nginx/ssl:ro
+    restart: always
+    networks:
+      - wms-network
+  
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  wms-network:
+    external: true

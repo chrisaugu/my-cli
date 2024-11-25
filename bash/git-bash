@@ -1,0 +1,2 @@
+ssh-keygen -t rsa -b 4096 -C "chrisaugu61@gmail.com"
+cat ~/.ssh/id_rsa.pub | copy

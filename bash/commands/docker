@@ -1,0 +1,37 @@
+#!/usr/env/bin/ bash
+# run chmod +x deploy.sh
+
+# build api
+# docker build -t api:0.1 . -f ./wms-web-services/Dockerfile
+# docker run -it --rm api:0.1
+
+# build frontend
+# docker build -t frontend:0.1 -f ./wms-order-tracking/Dockerfile --target=dev .
+
+
+docker build -t nextjs:latest -f Dockerfile .
+docker build -t nginx:latest -f nginx/Dockerfile nginx
+# docker-compose up -d
+
+
+sudo apt-get update
+sudo apt-get install certbot python3-certbot-nginx
+sudo certbot --nginx -d your-domain-name.com -d www.your-domain-name.com
+
+
+# Stop all running containers
+docker kill $(docker ps -aq) && docker rm $(docker ps -aq)
+
+# Free space
+docker system prune -af --volumes
+
+
+# Create a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+docker network create wms-network
+
+# Build prod without multistage
+docker compose -f docker-compose.prod-without-multistage.yml build
+
+# Up prod without multistage in detached mode
+docker compose -f docker-compose.prod-without-multistage.yml up -d

@@ -1,0 +1,11 @@
+openssl req -newkey rsa:4096 \
+            -x509 \
+            -sha256 \
+            -days 365 \
+            -nodes \
+            -out example.crt \
+            -keyout example.key \
+            -subj "/C=SI/ST=Ljubljana/L=Ljubljana/O=Security/OU=IT Department/CN=www.example.com"
+
+
+sudo openssl dhparam -out /etc/nginx/dhparam.pem 4096
