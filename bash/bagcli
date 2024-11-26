@@ -14,6 +14,7 @@ Commands:
   deploy    Deploy
   ssl       Generate new SSL Certificate
   check_ssl Check SSL certificates
+  generate_key  Generate secret key
   *         Help
 "
   exit 1
@@ -31,6 +32,12 @@ case "$1" in
     ;;
   check_ssl|c)
     "$BAGCLI_WORKDIR/commands/check_ssl" "$2" | tee -ia "$BAGCLI_WORKDIR/deploy_${2}.log"
+    ;;
+  generate_key|g)
+    "$BAGCLI_WORKDIR/commands/generate_secret_key" "$2" | tee -ia "$BAGCLI_WORKDIR/deploy_${2}.log"
+    ;;
+  local_ip|l)
+    "$BAGCLI_WORKDIR/commands/whats_my_local_ip" "$2" | tee -ia "$BAGCLI_WORKDIR/deploy_${2}.log"
     ;;
   *)
     cli_help
