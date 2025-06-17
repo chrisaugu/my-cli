@@ -16,9 +16,10 @@ class TaskTermServer extends EventEmitter {
     client.on("command", (cmd, args) => {
       switch (cmd) {
         case "help":
+        case "exit":
         case "ls":
         case "add":
-        case "delete":
+        case "del":
           this[cmd](args); // call a method for each command
           break;
         default:
@@ -33,7 +34,10 @@ class TaskTermServer extends EventEmitter {
       `Available commands: 
       add task
       ls
-      delete :id
+      del :id
+      -------------------
+      exit
+      help
      `
     );
   }
@@ -61,6 +65,10 @@ class TaskTermServer extends EventEmitter {
         return `${key}: ${this.tasks[key]}`;
       })
       .join("\n");
+  }
+
+  exit(args) {
+    process.exit();
   }
 }
 
